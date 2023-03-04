@@ -1,11 +1,16 @@
 package com.school.portal.student.search;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.school.portal.entity.master.Student;
 import com.school.portal.repository.master.StudentRepository;
 
@@ -22,52 +27,62 @@ public class SearchStudentService {
 	 * // 生徒情報取得
 	 * 
 	 * @return json 整形した学年情報
-	 * @throws RegistStudentException
-	 * @throws JsonProcessingException
 	 *
 	 */
-	public String searchStudent(final int classroomId, final String studentName) {
+	public List<Map<String, Object>> searchStudent(final int classroomId, final String studentName) {
 
 		// 結果格納
 		List<Student> students = studentRepository.findAll();
 		if (students.isEmpty()) {
-			return "0";
+			return null;
 		} else {
-			return "1";
+			return pickUpDisplayInfo(students);
 
 		}
 	}
-	//		List<Student> studentWholeInfo = new ArrayList<>();
+	
+	
+		private List<Map<String, Object>> pickUpDisplayInfo(List<Student> students) {
+			List<Map<String, Object>> returnJsonLiteral = new ArrayList<>();
+			for (Student student : students) {
+				Map<String, Object> studentMap = new LinkedHashMap<>();
+				studentMap.put("studentId", student.getId());
+				studentMap.put("studentName", student.getStudentName());
+				studentMap.put("classroomName", student.getClassroom().getClassroomName());
+				studentMap.put("prefectureName", student.getClassroom().getMPrefecture().getPrefectureName());
+				returnJsonLiteral.add(studentMap);
+			}
+			return Collections.unmodifiableList(returnJsonLiteral);
+	
+}
+		
+		// 取得データをJson形式に
+		public static String getDataToJsonFormat(Object returnJsonLiteral) throws JsonProcessingException {
+			ObjectMapper mapper = new ObjectMapper();
+			String strJson = "";
+			strJson = mapper.writeValueAsString(returnJsonLiteral);
+			return strJson;
+		}
+		
+	//		List<Student> studentWholestudent = new ArrayList<>();
 	//		//教室名を条件に設定しているかどうかで取得方法を変える
 	//		if ("".equals(classroomId)) {
-	//			studentWholeInfo = studentRepository.findByStudentNameLike("%" + studentName + "%");
+	//			studentWholestudent = studentRepository.findByStudentNameLike("%" + studentName + "%");
 	//		} else {
-	//			studentWholeInfo = studentRepository.findByClassroomAndStudentNameLike(
+	//			studentWholestudent = studentRepository.findByClassroomAndStudentNameLike(
 	//					new Classroom(Integer.parseInt(classroomId)), "%" + studentName + "%");
 	//		}
-	//		if (studentWholeInfo.isEmpty()) {
-	//			log.info("生徒情報が0件の状態");
+	//		if (studentWholestudent.isEmpty()) {
+	//			log.student("生徒情報が0件の状態");
 	//			return UseOverFunction.getDataToJsonFormat("0");
 	//
 	//		}
 	//
 	////		// 教室IDと教室名のみ取得
-	//		List<Map<String, Object>> studentIdAndNameList = pickupstudentInfo(
-	//				Collections.unmodifiableList(studentWholeInfo));
+	//		List<Map<String, Object>> studentIdAndNameList = pickupstudentstudent(
+	//				Collections.unmodifiableList(studentWholestudent));
 	//		String strJson = UseOverFunction.getDataToJsonFormat(studentIdAndNameList);
 	//		return strJson;
 	//	}
-	//
-	//	private List<Map<String, Object>> pickupstudentInfo(List<Student> studentWholeInfo) {
-	//		List<Map<String, Object>> returnJsonLiteral = new ArrayList<>();
-	//		for (Student info : studentWholeInfo) {
-	//			Map<String, Object> infoMap = new LinkedHashMap<>();
-	//			infoMap.put("studentId", info.getId());
-	//			infoMap.put("studentName", info.getStudentName());
-	//			infoMap.put("classroomName", info.getClassroom().getClassroomName());
-	//			infoMap.put("prefectureName", info.getClassroom().getMPrefecture().getPrefectureName());
-	//			returnJsonLiteral.add(infoMap);
-	//		}
-	//		return Collections.unmodifiableList(returnJsonLiteral);
 
 }

@@ -29,11 +29,15 @@ public class Student {
 	@ManyToOne
 	@JoinColumn(name = "classroom_id")
 	@JsonIgnore
+//	@JsonIdentityReference(alwaysAsId = true)
+//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 	private Classroom classroom;
 
 	@ManyToOne
 	@JoinColumn(name = "grade_key")
 	@JsonIgnore
+//	@JsonIdentityReference(alwaysAsId = true)
+//	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "gradeKey")
 	private Grade grade;
 
 	@Column(name = "name", length = 128, nullable = false, unique = true)
