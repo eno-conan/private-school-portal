@@ -1,4 +1,4 @@
-- 起動コマンド
+- 起動
 ```py
 uvicorn main:app --reload
 ```
