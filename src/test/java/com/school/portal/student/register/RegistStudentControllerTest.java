@@ -1,4 +1,4 @@
-package com.school.portal.student.search;
+package com.school.portal.student.register;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -26,12 +26,12 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @EnableWebMvc
-class SearchStudentControllerTest {
+class RegistStudentControllerTest {
 
 	private MockMvc mockMvc;
 
 	@MockBean
-	SearchStudentService searchStudentService;
+	RegistStudentService service;
 
 	@Autowired
 	WebApplicationContext webApplicationContext;
@@ -39,38 +39,37 @@ class SearchStudentControllerTest {
 	@BeforeEach
 	void beforeEach() {
 		MockitoAnnotations.openMocks(this);
-		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext) // MockMVCをセットアップ
+		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
 				.build();
 	}
 
 	@Test
-	@DisplayName("生徒情報取得：Controller")
-	void testSearchStudent() {
-		List<Map<String, Object>> returnJsonLiteral = createStudentList();
-		when(searchStudentService.searchStudent(1, "Mike")).thenReturn(returnJsonLiteral);
+	@DisplayName("生徒登録（教室情報事前取得）：Controller")
+	void testPrepareDataClassroomRegistStudent() {
+		List<Map<String, Object>> classroomDummyList = createClassroomList();
+		when(service.prepareClassroomData()).thenReturn(classroomDummyList);
 
 		try {
 			//		MvcResult result = null;
-			mockMvc.perform(get("/student/search?classroomId=1&studentName=Mike")).andExpect(status().isOk())
+			mockMvc.perform(get("/student/register/prepare-classroom")).andExpect(status().isOk())
+					.andExpect(content().encoding("ISO-8859-1"))
 					.andExpect(content().string(
-							"[{\"studentId\":1,\"studentName\":\"StudentName\",\"classroomName\":\"classroomName\",\"prefectureName\":\"PrefectureName\"}]"))
+							"[{\"classroomId\":1,\"prefectureName\":\"prefectureName\",\"classroomName\":\"classroomName\"}]"))
 					.andReturn();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		;
 
-		verify(searchStudentService, times(1)).searchStudent(1, "Mike");
+		verify(service, times(1)).prepareClassroomData();
 	}
 
-	private List<Map<String, Object>> createStudentList() {
+	private List<Map<String, Object>> createClassroomList() {
 		List<Map<String, Object>> returnJsonLiteral = new ArrayList<>();
-		Map<String, Object> studentMap = new LinkedHashMap<>();
-		studentMap.put("studentId", 1);
-		studentMap.put("studentName", "StudentName");
-		studentMap.put("classroomName", "ClassroomName");
-		studentMap.put("prefectureName", "PrefectureName");
-		returnJsonLiteral.add(studentMap);
+		Map<String, Object> classroomMap = new LinkedHashMap<>();
+		classroomMap.put("classroomId", 1);
+		classroomMap.put("prefectureName", "prefectureName");
+		classroomMap.put("classroomName", "classroomName");
+		returnJsonLiteral.add(classroomMap);
 		return returnJsonLiteral;
 	}
 

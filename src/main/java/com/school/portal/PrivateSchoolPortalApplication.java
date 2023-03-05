@@ -9,5 +9,5 @@ public class PrivateSchoolPortalApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PrivateSchoolPortalApplication.class, args);
 	}
-
+	
 }
