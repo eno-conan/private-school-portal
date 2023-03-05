@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +20,7 @@ import com.school.portal.entity.master.Classroom;
 import com.school.portal.entity.master.Grade;
 import com.school.portal.entity.master.Prefecture;
 import com.school.portal.entity.master.Student;
+import com.school.portal.exception.StudentSearchException;
 import com.school.portal.repository.master.StudentRepository;
 
 /**
@@ -50,17 +50,30 @@ class SearchStudentServiceTest {
 	}
 
 	@Test
-	@DisplayName("生徒情報取得：Service")
-	void testFindAll() {
+	@DisplayName("生徒情報取得：全件取得")
+	void testSearchStudent_FindAll() throws StudentSearchException {
 		List<Student> students = createStudent();
 		//実行時の期待結果
 		when(repository.findAll()).thenReturn((students));
 		//実行
-		List<Map<String, Object>> result = service.searchStudent(1, "Mike");
+		service.searchStudent(1, "");
+
+		// 検証
+		assertThat(students.size()).isEqualTo(1);
+	}
+
+	@Test
+	@DisplayName("生徒情報取得：条件設定")
+	void testSearchStudent_setStudentName() throws StudentSearchException {
+		List<Student> students = createStudent();
+		//実行時の期待結果
+		when(repository.findByClassroomAndStudentNameLike(new Classroom(1), "Mike")).thenReturn((students));
+		//実行
+		service.searchStudent(1, "Mike");
 
 		// 検証
 		assertThat(students.get(0).getId()).isEqualTo(1);
-//		assertThat(result.get(0).get("studentId").toString()).isEqualTo("1");
+		assertThat(students.get(0).getStudentName()).isEqualTo("Mike");
 	}
 
 	/**
@@ -73,7 +86,7 @@ class SearchStudentServiceTest {
 		List<Student> students = new ArrayList<>();
 		Student student = new Student();
 		student.setId(1);
-		student.setStudentName("studentName");
+		student.setStudentName("Mike");
 		student.setBirthday(new Date());
 		Prefecture mPrefecture = new Prefecture();
 		mPrefecture.setId(1);

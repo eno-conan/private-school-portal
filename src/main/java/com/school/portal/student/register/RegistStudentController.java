@@ -13,8 +13,6 @@ public class RegistStudentController {
 	@Autowired
 	private RegistStudentService registStudentService;
 
-	//	@Autowired
-	//	private PrepareService registStudentPrepareService;
 
 	/**
 	 * 生徒登録に必要なデータ取得（教室情報）

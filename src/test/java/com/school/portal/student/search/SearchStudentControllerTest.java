@@ -23,6 +23,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.school.portal.exception.StudentSearchException;
+
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @EnableWebMvc
@@ -31,7 +33,7 @@ class SearchStudentControllerTest {
 	private MockMvc mockMvc;
 
 	@MockBean
-	SearchStudentService searchStudentService;
+	SearchStudentService service;
 
 	@Autowired
 	WebApplicationContext webApplicationContext;
@@ -44,24 +46,53 @@ class SearchStudentControllerTest {
 	}
 
 	@Test
-	@DisplayName("生徒情報取得：Controller")
-	void testSearchStudent() {
+	@DisplayName("生徒情報取得Controller：正常系")
+	void testSearchStudent_correct() throws StudentSearchException {
 		List<Map<String, Object>> returnJsonLiteral = createStudentList();
-		when(searchStudentService.searchStudent(1, "Mike")).thenReturn(returnJsonLiteral);
+		when(service.searchStudent(1, "Mike")).thenReturn(returnJsonLiteral);
 
 		try {
 			//		MvcResult result = null;
 			mockMvc.perform(get("/student/search?classroomId=1&studentName=Mike")).andExpect(status().isOk())
 					.andExpect(content().string(
-							"[{\"studentId\":1,\"studentName\":\"StudentName\",\"classroomName\":\"classroomName\",\"prefectureName\":\"PrefectureName\"}]"))
+							"[{\"studentId\":1,\"studentName\":\"StudentName\",\"classroomName\":\"ClassroomName\",\"prefectureName\":\"PrefectureName\"}]"))
 					.andReturn();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		;
 
-		verify(searchStudentService, times(1)).searchStudent(1, "Mike");
+		verify(service, times(1)).searchStudent(1, "Mike");
 	}
+
+	@Test
+	@DisplayName("生徒情報取得Controller：クエリパラメータなし(BadRequest)")
+	void testSearchStudent_UnSetQueryParamters() throws StudentSearchException {
+		try {
+			mockMvc.perform(get("/student/search")).andExpect(status().isInternalServerError());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		//Serviceクラス呼び出し前に処理が終了
+		verify(service, times(0)).searchStudent(1, "Mike");
+	}
+
+//	@Test
+//	@DisplayName("生徒情報取得Controller：例外発生")
+//	void testSearchStudent_raiseException() throws StudentSearchException {
+//		List<Map<String, Object>> returnJsonLiteral = createStudentList();
+//		when(service.searchStudent(1, "Mike")).thenReturn(returnJsonLiteral).thenThrow(new StudentSearchException());
+//
+//		try {
+//			mockMvc.perform(get("/student/search?classroomId=1&studentName=Mike"))
+//					.andExpect(status().isOk());
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//
+//		//Serviceクラス呼び出し前に処理が終了
+//		verify(service, times(1)).searchStudent(1, "Mike");
+//	}
 
 	private List<Map<String, Object>> createStudentList() {
 		List<Map<String, Object>> returnJsonLiteral = new ArrayList<>();
