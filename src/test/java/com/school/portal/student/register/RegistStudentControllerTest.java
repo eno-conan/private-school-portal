@@ -28,10 +28,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 class RegistStudentControllerTest {
 
-	private MockMvc mockMvc;
-
 	@MockBean
 	RegistStudentService service;
+
+	private MockMvc mockMvc;
 
 	@Autowired
 	WebApplicationContext webApplicationContext;

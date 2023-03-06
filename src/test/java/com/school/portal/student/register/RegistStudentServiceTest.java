@@ -24,10 +24,10 @@ class RegistStudentServiceTest {
 	@Mock
 	ClassroomRepository classroomRepository;
 	
-	private AutoCloseable closeable;
-	
 	@InjectMocks
 	RegistStudentService service;
+	
+	private AutoCloseable closeable;
 	
 	@BeforeEach
 	public void openMocks() {
@@ -53,7 +53,7 @@ class RegistStudentServiceTest {
 	}
 
 	/**
-	 * Student作成用Helperメソッド 
+	 * 教室作成用Helperメソッド 
 	 * 
 	 * @return Student
 	 *

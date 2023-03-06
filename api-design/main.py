@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 from fastapi import FastAPI, Depends, Path, HTTPException
-from api_model import student_register_prepare_classroom_model, student_search_model
+from api_model import student_register_prepare_classroom_model, student_search_model, class_normal_schedule_model
 from fastapi.middleware.cors import CORSMiddleware
 import handle_db
 from typing import List
@@ -20,24 +20,46 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get(path="/", tags=['base'])
+# uvicorn main:app --reload
+
+
+@app.get(path="/", tags=['root'])
 async def FastAPI():
     return {"message": "Hello World"}
 
-@app.get(path="/student/search", response_model=List[student_search_model], tags=['student'])
-async def student_search():
+
+@app.get(path="/student/search", response_model=List[student_search_model], tags=['生徒関連'])
+# async def student_search(classroomId: int, studentName: str):
+async def 生徒検索(classroomId: int, studentName: str):
     result = [{"studentId": 1,
                "studentName": "StudentName",
                "classroomName": "ClassroomName",
                "prefectureName": "PrefectureName"}]
     return result
 
-@app.get(path="/student/register/prepare-classroom", response_model=List[student_register_prepare_classroom_model], tags=['student'])
-async def student_register_prepare_classroom():
+
+@app.get(path="/student/register/prepare-classroom", response_model=List[student_register_prepare_classroom_model], tags=['生徒関連'])
+# async def student_register_prepare_classroom():
+async def 生徒登録_候補の教室一覧取得():
     result = [
         {"classroomId": 1,
          "classroomName": "ClassroomName",
          "prefectureName": "PrefectureName"}
+    ]
+    return result
+
+
+@app.get(path="/class-schedule", response_model=List[class_normal_schedule_model], tags=['授業予定'])
+# async def student_register_prepare_classroom():
+async def 通常授業予定取得(targetDate:str):
+    result = [
+        {"id": 1,
+         "period": "6",
+         "grade": "grade",
+         "subject": "subject",
+         "studentId": 1,
+         "studentName": "studentName",
+         "lecturerName": "lecturerName"}
     ]
     return result
 

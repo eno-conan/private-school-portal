@@ -4,9 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Component
 public class UseOverFunction {
 
 	// 今日の日付を、文字列型で取得
@@ -27,7 +30,7 @@ public class UseOverFunction {
 	}
 
 	// 日付を文字列型の日付に
-	public static String dateToDateStr(Date date) {
+	public String dateToDateStr(Date date) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		return dateFormat.format(date);
 	}

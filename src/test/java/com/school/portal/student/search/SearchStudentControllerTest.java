@@ -65,7 +65,7 @@ class SearchStudentControllerTest {
 	}
 
 	@Test
-	@DisplayName("生徒情報取得Controller：クエリパラメータなし(BadRequest)")
+	@DisplayName("生徒情報取得Controller：クエリパラメータなし")
 	void testSearchStudent_UnSetQueryParamters() throws StudentSearchException {
 		try {
 			mockMvc.perform(get("/student/search")).andExpect(status().isInternalServerError());
