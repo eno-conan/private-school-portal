@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 from fastapi import FastAPI, Depends, Path, HTTPException
-from api_model import student_register_prepare_classroom_model, student_search_model, class_normal_schedule_model
+from api_model import student_register_prepare_classroom_model, student_search_model, class_normal_schedule_model, register_student_body
 from fastapi.middleware.cors import CORSMiddleware
 import handle_db
 from typing import List
@@ -49,9 +49,20 @@ async def 生徒登録_候補の教室一覧取得():
     return result
 
 
+@app.post(path="/student/register", tags=['生徒関連'])
+async def 生徒登録(body: register_student_body):
+    result = handle_db.create_user()
+    if result == 1:
+        raise HTTPException(status_code=404, detail="Query Error!!")
+    return {
+        "status": "OK",
+        "data": result
+    }
+
+
 @app.get(path="/class-schedule", response_model=List[class_normal_schedule_model], tags=['授業予定'])
 # async def student_register_prepare_classroom():
-async def 通常授業予定取得(targetDate:str):
+async def 通常授業予定取得(targetDate: str):
     result = [
         {"id": 1,
          "period": "6",

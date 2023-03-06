@@ -72,7 +72,7 @@ class ClassScheduleControllerTest {
 	void testGetTargetDateClassSchedule_invalidQueryParemeter() {
 		
 		try {
-			mockMvc.perform(get("/class-schedule")).andExpect(status().isInternalServerError());
+			mockMvc.perform(get("/class-schedule")).andExpect(status().isBadRequest());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

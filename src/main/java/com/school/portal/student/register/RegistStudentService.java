@@ -1,5 +1,6 @@
 package com.school.portal.student.register;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -11,36 +12,64 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.school.portal.entity.master.Classroom;
+import com.school.portal.entity.master.Grade;
+import com.school.portal.entity.master.Student;
+import com.school.portal.model.RegistStudentModel;
 import com.school.portal.repository.master.ClassroomRepository;
+import com.school.portal.repository.master.StudentRepository;
+import com.school.portal.util.UseOverFunction;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class RegistStudentService {
 
-	//	@Autowired
-	//	private GradeRepository gradeRepository;
-
 	@Autowired
 	private ClassroomRepository classroomRepository;
+
+	@Autowired
+	private StudentRepository studentRepository;
 
 	/**
 	 * // 教室情報取得
 	 * 
-	 * @return json 整形した教室情報
-	 * @throws RegistStudentException
-	 * @throws JsonProcessingException
+	 * @return 整形した教室情報
 	 *
 	 */
 	public List<Map<String, Object>> prepareClassroomData() {
 		List<Classroom> classrooms = classroomRepository.findAll();
 		if (classrooms.isEmpty()) {
-			log.error("教室情報0件");
+			log.warn("教室情報0件");
+		} else {
+			log.info("教室情報1件以上");
 		}
 
 		// 教室IDと教室名のみ取得
 		return pickupClassroomInfo(classrooms);
+	}
+
+	/**
+	 * 生徒登録
+	 * 
+	 * @param content 登録内容
+	 * @throws JsonProcessingException
+	 *
+	 */
+	@Transactional
+	String registerStudent(final RegistStudentModel content) throws JsonProcessingException {
+		Student student = new Student();
+		student.setStudentName(content.getStudentName());
+		student.setBirthday(UseOverFunction.convertStrDateToDateType(content.getBirthDay()));
+		student.setClassroom(new Classroom(content.getClassroomId()));
+		student.setGrade(new Grade(content.getGrade()));
+		student.setDeleteFlg(false);
+		student.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+		student.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+		studentRepository.save(student);
+		Student registerResult = studentRepository.save(student);
+		return registerResult.getStudentName();
 	}
 
 	/**

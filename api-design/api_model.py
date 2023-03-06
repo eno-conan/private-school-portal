@@ -34,6 +34,23 @@ class student_register_prepare_classroom_model(BaseModel):
         }
 
 
+class register_student_body(BaseModel):
+    studentName: str
+    birthDay: str
+    grade: str
+    classroomId: int
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "studentName": "a",
+                "birthDay": "2006-12-02",
+                "grade": "h1",
+                "classroomId": 1
+            }
+        }
+
+
 class class_normal_schedule_model(BaseModel):
     id: int
     period: str
