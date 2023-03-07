@@ -47,36 +47,31 @@ class ClassScheduleControllerTest {
 	}
 
 	@Test
-	@DisplayName("授業予定取得(日付指定)：正常系")
-	void testGetTargetDateClassSchedule_correct() {
+	@DisplayName("授業予定取得(日付指定)_正常系")
+	void testGetTargetDateClassSchedule_correct() throws Exception {
 		List<Map<String, Object>> classroomDummyList = createNormalClassList();
-		Date date = generateDateStringtoDate();		
+		Date date = generateDateStringtoDate();
 		when(service.getTargetDateClassSchedule(date)).thenReturn(classroomDummyList);
-
-		try {
-			//		MvcResult result = null;
-			mockMvc.perform(get("/class-schedule?targetDate=2023-01-23")).andExpect(status().isOk());
-			//					.andExpect(content().encoding("ISO-8859-1"))
-			//					.andExpect(content().string(
-			//							"[{\"classroomId\":1,\"prefectureName\":\"prefectureName\",\"classroomName\":\"classroomName\"}]"))
-			//					.andReturn();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		//		MvcResult result = null;
+		mockMvc.perform(get("/class-schedule?targetDate=2023-01-23")).andExpect(status().isOk());
+		//					.andExpect(content().encoding("ISO-8859-1"))
+		//					.andExpect(content().string(
+		//							"[{\"classroomId\":1,\"prefectureName\":\"prefectureName\",\"classroomName\":\"classroomName\"}]"))
+		//					.andReturn();
 
 		verify(service, times(1)).getTargetDateClassSchedule(date);
 	}
-	
+
 	@Test
-	@DisplayName("授業予定取得Controller：異常系（クエリパラメータなし）")
+	@DisplayName("授業予定取得Controller_異常系（クエリパラメータなし）")
 	void testGetTargetDateClassSchedule_invalidQueryParemeter() {
-		
+
 		try {
 			mockMvc.perform(get("/class-schedule")).andExpect(status().isBadRequest());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Date date = generateDateStringtoDate();		
+		Date date = generateDateStringtoDate();
 		verify(service, times(0)).getTargetDateClassSchedule(date);
 	}
 
@@ -100,10 +95,9 @@ class ClassScheduleControllerTest {
 		normalClassMap.put("subject", "Math");
 		normalClassMap.put("studentId", 1);
 		normalClassMap.put("studentName", "Student A");
-		normalClassMap.put("lecturerName", "Teacher A");
+		normalClassMap.put("teacherName", "Teacher A");
 		returnJsonLiteral.add(normalClassMap);
 		return returnJsonLiteral;
 	}
 
-	
 }

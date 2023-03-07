@@ -19,9 +19,9 @@ import org.mockito.MockitoAnnotations;
 
 import com.school.portal.entity.StudentScheduleNormal;
 import com.school.portal.entity.master.Grade;
-import com.school.portal.entity.master.Lecturer;
 import com.school.portal.entity.master.Student;
 import com.school.portal.entity.master.Subject;
+import com.school.portal.entity.master.Teacher;
 import com.school.portal.entity.master.TimeTableNormal;
 import com.school.portal.repository.StudentScheduleNormalRepository;
 
@@ -47,7 +47,7 @@ class TargetDateClassesServiceTest {
 	}
 
 	@Test
-	@DisplayName("授業予定取得(日付指定)：正常系")
+	@DisplayName("授業予定取得(日付指定)_正常系")
 	void testGetTargetDateClassSchedule() {
 		List<StudentScheduleNormal> classList = createNormalClassList();
 		//実行時の期待結果
@@ -77,8 +77,8 @@ class TargetDateClassesServiceTest {
 		List<StudentScheduleNormal> normalClassMap = new ArrayList<>();
 		StudentScheduleNormal studentScheduleNormal = new StudentScheduleNormal(1);
 
-		Lecturer lecturer = new Lecturer(1);
-		studentScheduleNormal.setLecturer(lecturer);
+		Teacher teacher = new Teacher(1);
+		studentScheduleNormal.setTeacher(teacher);
 		Subject subject = new Subject("m1");
 		studentScheduleNormal.setSubject(subject);
 		TimeTableNormal timeTableNormal = new TimeTableNormal(1);

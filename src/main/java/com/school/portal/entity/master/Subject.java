@@ -49,7 +49,7 @@ public class Subject {
 //
 //	@OneToMany(mappedBy = "subject", cascade = CascadeType.PERSIST, orphanRemoval = false)
 //	@JsonIgnore
-//	private List<LecturerTeachSubject> lecturerTeachSubject;
+//	private List<teacherTeachSubject> teacherTeachSubject;
 //
 //	@OneToMany(mappedBy = "subject", cascade = CascadeType.MERGE, orphanRemoval = false)
 //	@JsonIgnore

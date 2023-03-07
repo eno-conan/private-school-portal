@@ -21,10 +21,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "m_lecturer")
+@Table(name = "m_teacher")
 @NoArgsConstructor
 @Data
-public class Lecturer {
+public class Teacher {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class Lecturer {
 	private Classroom classroom;
 
 	@Column(name = "name", length = 128, nullable = false, unique = true)
-	private String lecturerName;
+	private String teacherName;
 
 	@Column(name = "birthday")
 	private Date birthday;
@@ -51,29 +51,29 @@ public class Lecturer {
 	@Column(name = "updated_at")
 	private Timestamp updatedAt;
 
-//	@OneToMany(mappedBy = "lecturer", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = false)
+//	@OneToMany(mappedBy = "teacher", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = false)
 //	private List<StudentSubject> studentSubjects;
 
-	@OneToMany(mappedBy = "lecturer", cascade = CascadeType.PERSIST, orphanRemoval = false)
+	@OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = false)
 	private List<StudentScheduleNormal> studentScheduleNormal;
 
-//	@OneToMany(mappedBy = "lecturer", cascade = CascadeType.PERSIST, orphanRemoval = false)
-//	private List<LecturerTeachSubject> lecturerTeachSubject;
+//	@OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = false)
+//	private List<teacherTeachSubject> teacherTeachSubject;
 //
-//	@OneToMany(mappedBy = "lecturer", cascade = CascadeType.PERSIST, orphanRemoval = false)
-//	private List<LecturerWorkableTime> lecturerWorkableTime;
+//	@OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = false)
+//	private List<teacherWorkableTime> teacherWorkableTime;
 //
-//	@OneToMany(mappedBy = "lecturer", cascade = CascadeType.PERSIST, orphanRemoval = false)
+//	@OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = false)
 //	private List<StudentScheduleSpecial> studentScheduleSpecial;
 
-	public Lecturer(Integer id) {
+	public Teacher(Integer id) {
 		this.id = id;
 	}
 
-	public Lecturer(Classroom classroom, String lecturerName, Date birthday, boolean deleteFlg, Timestamp createdAt,
+	public Teacher(Classroom classroom, String teacherName, Date birthday, boolean deleteFlg, Timestamp createdAt,
 			Timestamp updatedAt) {
 		this.classroom = classroom;
-		this.lecturerName = lecturerName;
+		this.teacherName = teacherName;
 		this.birthday = birthday;
 		this.deleteFlg = deleteFlg;
 		this.createdAt = createdAt;

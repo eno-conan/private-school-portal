@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class SearchStudentService {
+class SearchStudentService {
 
 	@Autowired
 	private StudentRepository studentRepository;
@@ -26,7 +26,7 @@ public class SearchStudentService {
 	/**
 	 * // 生徒情報取得
 	 * 
-	 * @return json 整形した学年情報
+	 * @return json 整形した生徒情報
 	 *
 	 */
 	public List<Map<String, Object>> searchStudent(final int classroomId, final String studentName)

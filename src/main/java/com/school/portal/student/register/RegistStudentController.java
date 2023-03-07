@@ -15,7 +15,7 @@ import com.school.portal.model.RegistStudentModel;
 import jakarta.validation.Valid;
 
 @RestController
-public class RegistStudentController {
+class RegistStudentController {
 
 	@Autowired
 	private RegistStudentService registStudentService;

@@ -15,7 +15,7 @@ public interface StudentScheduleNormalRepository extends JpaRepository<StudentSc
 	public List<StudentScheduleNormal> findAllByClassDateOrderByTimeTableNormalAsc(Date date);
 
 //	// あるコマの講師の授業を取得
-//	public List<StudentScheduleNormal> findAllByLecturerAndClassDateAndTimeTableNormal(Lecturer lecturer, Date date,
+//	public List<StudentScheduleNormal> findAllByteacherAndClassDateAndTimeTableNormal(Teacher teacher, Date date,
 //			TimeTableNormal timeTableNormal);
 //
 //	// あるコマの生徒の授業予定を取得

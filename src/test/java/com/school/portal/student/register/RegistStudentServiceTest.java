@@ -61,7 +61,7 @@ class RegistStudentServiceTest {
 	}
 
 	@Test
-	@DisplayName("生徒登録(教室選択肢表示のための情報取得)：正常系")
+	@DisplayName("生徒登録(教室選択肢表示のための情報取得)_正常系")
 	void testPrepareClassroomData_success() throws StudentSearchException {
 		List<Classroom> classroomList = createClassroom();
 		//期待結果設定
@@ -77,7 +77,7 @@ class RegistStudentServiceTest {
 	}
 
 	@Test
-	@DisplayName("生徒登録(教室選択肢表示のための情報取得)：異常系_教室情報0件")
+	@DisplayName("生徒登録(教室選択肢表示のための情報取得)_異常系_教室情報0件")
 	void testPrepareClassroomData_warn() throws StudentSearchException {
 		List<Classroom> classroomList = new ArrayList<>();
 		//期待結果設定
@@ -92,7 +92,7 @@ class RegistStudentServiceTest {
 	}
 
 	@Test
-	@DisplayName("生徒登録：正常系")
+	@DisplayName("生徒登録_正常系")
 	void testRegisterStudent() throws StudentSearchException, JsonProcessingException {
 		//リクエスト内容
 		RegistStudentModel model = new RegistStudentModel("studentName", "2005-01-01", "h1", 1);

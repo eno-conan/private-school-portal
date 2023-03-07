@@ -44,7 +44,7 @@ class GetSelectStudentClassesService {
 //			eachRowInfoMap.put("subject", eachClass.getSubject().getDisplayName());
 //			eachRowInfoMap.put("studentId", String.valueOf(eachClass.getStudent().getId()));
 //			eachRowInfoMap.put("studentName", eachClass.getStudent().getStudentName());
-//			eachRowInfoMap.put("lecturerName", eachClass.getLecturer().getLecturerName());
+//			eachRowInfoMap.put("teacherName", eachClass.getteacher().getteacherName());
 //
 //			String classDate = UseOverFunction.dateToDateStr(eachClass.getClassDate());
 //			eachRowInfoMap.put("classDate", classDate.replace("-", "/"));

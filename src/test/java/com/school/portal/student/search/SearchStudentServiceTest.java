@@ -50,7 +50,7 @@ class SearchStudentServiceTest {
 	}
 
 	@Test
-	@DisplayName("生徒情報取得：全件取得")
+	@DisplayName("生徒情報取得_正常系_全件取得")
 	void testSearchStudent_FindAll() throws StudentSearchException {
 		List<Student> students = createStudent();
 		//実行時の期待結果
@@ -63,7 +63,7 @@ class SearchStudentServiceTest {
 	}
 
 	@Test
-	@DisplayName("生徒情報取得：条件設定")
+	@DisplayName("生徒情報取得_正常系_条件設定")
 	void testSearchStudent_setStudentName() throws StudentSearchException {
 		List<Student> students = createStudent();
 		//実行時の期待結果

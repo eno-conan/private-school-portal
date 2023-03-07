@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.school.portal.exception.StudentSearchException;
 
 @RestController
-public class SearchStudentController {
+class SearchStudentController {
 
 	@Autowired
 	private SearchStudentService searchStudentService;

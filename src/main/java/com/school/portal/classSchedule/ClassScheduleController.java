@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.school.portal.util.UseOverFunction;
 
 @RestController
-public class ClassScheduleController {
+class ClassScheduleController {
 	
 	@Autowired
 	private TargetDateClassesService targetDateClassesService;
@@ -43,7 +43,7 @@ public class ClassScheduleController {
 //		    "subject": "算数",
 //		    "studentId": "1",
 //		    "studentName": "a",
-//		    "lecturerName": "講師A",
+//		    "teacherName": "講師A",
 //		    "rescheduleDateStart": "2023/01/23",
 //		    "rescheduleDateEnd": "2023/01/23"
 //		  }

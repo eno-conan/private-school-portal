@@ -57,7 +57,7 @@ class RegistStudentControllerTest {
 	}
 
 	@Test
-	@DisplayName("生徒登録（教室情報事前取得）：正常系")
+	@DisplayName("生徒登録（教室情報事前取得）_正常系")
 	void testPrepareDataClassroomRegistStudent() throws Exception {
 		List<Map<String, Object>> classroomDummyList = createClassroomList();
 		when(service.prepareClassroomData()).thenReturn(classroomDummyList);
@@ -73,7 +73,7 @@ class RegistStudentControllerTest {
 	}
 
 	@Test
-	@DisplayName("生徒登録：正常系")
+	@DisplayName("生徒登録_正常系")
 	void testRegisterStudent_success() throws JsonProcessingException, Exception {
 
 		RegistStudentModel itemRequest = new RegistStudentModel("a", "2005-01-01", "h1", 1);
@@ -95,7 +95,7 @@ class RegistStudentControllerTest {
 	}
 
 	@Test
-	@DisplayName("生徒登録：異常系_StudentNameが空文字")
+	@DisplayName("生徒登録_異常系_StudentNameが空文字")
 	void testRegisterStudent_failed_blankStudentName() throws JsonProcessingException, Exception {
 
 		RegistStudentModel itemRequest = new RegistStudentModel("", "2005-01-01", "h1", 1);

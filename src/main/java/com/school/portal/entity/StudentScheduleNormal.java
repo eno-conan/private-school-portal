@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.school.portal.entity.master.Lecturer;
+import com.school.portal.entity.master.Teacher;
 import com.school.portal.entity.master.Student;
 import com.school.portal.entity.master.Subject;
 import com.school.portal.entity.master.TimeTableNormal;
@@ -45,9 +45,9 @@ public class StudentScheduleNormal implements Cloneable, StudentSchedule {
 	private Subject subject;
 
 	@ManyToOne
-	@JoinColumn(name = "lecturer_id")
+	@JoinColumn(name = "teacher_id")
 	@JsonIgnore
-	private Lecturer lecturer;
+	private Teacher teacher;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST })
 	@JoinColumn(name = "time_table_normal_id", nullable = true)
@@ -89,7 +89,7 @@ public class StudentScheduleNormal implements Cloneable, StudentSchedule {
 		studentScheduleNormal.id = id;
 		studentScheduleNormal.student = student;
 		studentScheduleNormal.subject = subject;
-		studentScheduleNormal.lecturer = lecturer;
+		studentScheduleNormal.teacher = teacher;
 		studentScheduleNormal.timeTableNormal = timeTableNormal;
 		studentScheduleNormal.classDate = classDate;
 		studentScheduleNormal.rescheduleDateStart = rescheduleDateStart;

@@ -44,13 +44,13 @@ class TargetDateClassesService {
 			classMap.put("subject", cls.getSubject().getDisplayName());
 			classMap.put("studentId", cls.getStudent().getId());
 			classMap.put("studentName", cls.getStudent().getStudentName());
-			classMap.put("lecturerName", cls.getLecturer().getLecturerName());
+			classMap.put("teacherName", cls.getTeacher().getTeacherName());
 
 			//モーダルでなければ不要（画面遷移するなら、再度取得）
-//			Date rescheduleDateStart = cls.getRescheduleDateStart();
-//			Date rescheduleDateEnd = cls.getRescheduleDateLast();
-//			classMap.put("rescheduleDateStart", rescheduleDateStart.toString().split(" ")[0]);
-//			classMap.put("rescheduleDateEnd", rescheduleDateEnd.toString().split(" ")[0]);
+			//			Date rescheduleDateStart = cls.getRescheduleDateStart();
+			//			Date rescheduleDateEnd = cls.getRescheduleDateLast();
+			//			classMap.put("rescheduleDateStart", rescheduleDateStart.toString().split(" ")[0]);
+			//			classMap.put("rescheduleDateEnd", rescheduleDateEnd.toString().split(" ")[0]);
 
 			returnJsonLiteral.add(classMap);
 		}

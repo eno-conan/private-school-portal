@@ -51,10 +51,10 @@ public class Classroom {
 
 //	// 大きな教室の場合、複数人になるため
 //	@OneToMany(mappedBy = "classroom", cascade = CascadeType.PERSIST, orphanRemoval = false)
-//	private List<Lecturer> employee;
+//	private List<Teacher> employee;
 //
 //	@OneToMany(mappedBy = "classroom", cascade = CascadeType.PERSIST, orphanRemoval = false)
-//	private List<Lecturer> lecturers;
+//	private List<Teacher> teachers;
 //
 //	@OneToMany(mappedBy = "classroom", cascade = CascadeType.PERSIST, orphanRemoval = false)
 //	private List<Student> students;
