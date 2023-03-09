@@ -3,7 +3,8 @@ from fastapi import FastAPI, Depends, Path, HTTPException
 from api_model import \
     student_register_prepare_classroom_model, \
     student_search_model, class_normal_schedule_model, \
-    register_student_body, teacher_search_model
+    register_student_body, teacher_search_model,\
+    class_normal_schedule_model_by_student_id
 from fastapi.middleware.cors import CORSMiddleware
 import handle_db
 from typing import List
@@ -32,7 +33,6 @@ async def FastAPI():
 
 
 @app.get(path="/student/search", response_model=List[student_search_model], tags=['生徒関連'])
-# async def student_search(classroomId: int, studentName: str):
 async def 生徒検索(classroomId: int, studentName: str):
     result = [{"studentId": 1,
                "studentName": "StudentName",
@@ -64,7 +64,6 @@ async def 生徒登録(body: register_student_body):
 
 
 @app.get(path="/teacher/search", response_model=List[teacher_search_model], tags=['講師関連'])
-# async def student_register_prepare_classroom():
 async def 講師検索(classroomId: int, teacherName: str):
     result = [
         {
@@ -76,14 +75,28 @@ async def 講師検索(classroomId: int, teacherName: str):
 
 
 @app.get(path="/class-schedule", response_model=List[class_normal_schedule_model], tags=['授業予定'])
-# async def student_register_prepare_classroom():
-async def 通常授業予定取得(targetDate: str):
+async def 通常授業予定取得_日付指定(targetDate: str):
     result = [
         {"id": 1,
          "period": "6",
          "grade": "grade",
          "subject": "subject",
          "studentId": 1,
+         "studentName": "studentName",
+         "lecturerName": "lecturerName"}
+    ]
+    return result
+
+
+@app.get(path="/class-schedule/{studentId}", response_model=List[class_normal_schedule_model_by_student_id], tags=['授業予定'])
+async def 通常授業予定取得_生徒ID指定(studentId: int):
+    result = [
+        {
+         "studentId": 1,
+         "classDate": "2023/03/12",
+         "period": "6",
+         "grade": "grade",
+         "subject": "subject",
          "studentName": "studentName",
          "lecturerName": "lecturerName"}
     ]

@@ -50,6 +50,7 @@ class register_student_body(BaseModel):
             }
         }
 
+
 class teacher_search_model(BaseModel):
     # teacher search
     teacherId: int
@@ -62,7 +63,6 @@ class teacher_search_model(BaseModel):
                 "teacherName": "teacherName",
             }
         }
-
 
 
 class class_normal_schedule_model(BaseModel):
@@ -84,5 +84,28 @@ class class_normal_schedule_model(BaseModel):
                 "studentId": 1,
                 "studentName": "a",
                 "lecturerName": "講師A"
+            }
+        }
+
+
+class class_normal_schedule_model_by_student_id(BaseModel):
+    studentId: int
+    classDate: str
+    period: str
+    grade: str
+    subject: str
+    studentName: str
+    lecturerName: str
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "studentId": 1,
+                "classDate": "2023/03/12",
+                "period": "6",
+                "grade": "grade",
+                "subject": "subject",
+                "studentName": "studentName",
+                "lecturerName": "lecturerName"
             }
         }
