@@ -50,6 +50,20 @@ class register_student_body(BaseModel):
             }
         }
 
+class teacher_search_model(BaseModel):
+    # teacher search
+    teacherId: int
+    teacherName: str
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "teacherId": 1,
+                "teacherName": "teacherName",
+            }
+        }
+
+
 
 class class_normal_schedule_model(BaseModel):
     id: int
