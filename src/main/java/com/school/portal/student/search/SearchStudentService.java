@@ -14,10 +14,8 @@ import com.school.portal.entity.master.Student;
 import com.school.portal.exception.StudentSearchException;
 import com.school.portal.repository.master.StudentRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
+//@Slf4j
 class SearchStudentService {
 
 	@Autowired
