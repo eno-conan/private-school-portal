@@ -59,6 +59,9 @@ class RegistStudentControllerTest {
 	@Test
 	@DisplayName("生徒登録（教室情報事前取得）_正常系")
 	void testPrepareDataClassroomRegistStudent() throws Exception {
+		//　どういった情報を設定しているか、Helperメソッドで隠れている
+		// 全部の引数を設定できるコンストラクタに値を設定する部分を見せればよい。
+		// Map型が戻り値になっているメソッドを設定した方がいいかな
 		List<Map<String, Object>> classroomDummyList = createClassroomList();
 		when(service.prepareClassroomData()).thenReturn(classroomDummyList);
 
@@ -76,10 +79,13 @@ class RegistStudentControllerTest {
 	@DisplayName("生徒登録_正常系")
 	void testRegisterStudent_success() throws JsonProcessingException, Exception {
 
+		//どういった情報を設定しているか、Helperメソッドで隠れていないので、OK
+		// 生徒登録に必要な情報全て正しく設定できているという前提条件で
 		RegistStudentModel itemRequest = new RegistStudentModel("a", "2005-01-01", "h1", 1);
 
 		String content = objectWriter.writeValueAsString(itemRequest);
 
+		// 生徒情報をm_studentテーブルに登録する場合
 		when(service.registerStudent(itemRequest)).thenReturn("success");
 
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/student/register")
@@ -89,6 +95,7 @@ class RegistStudentControllerTest {
 
 		MvcResult result = mockMvc.perform(mockRequest).andExpect(status().isOk()).andReturn();
 
+		// その場合は、"success"という文言が取得できていること
 		assertEquals(result.getResponse().getContentAsString(), "success");
 		verify(service, times(1)).registerStudent(itemRequest);
 
@@ -98,14 +105,17 @@ class RegistStudentControllerTest {
 	@DisplayName("生徒登録_異常系_StudentNameが空文字")
 	void testRegisterStudent_failed_blankStudentName() throws JsonProcessingException, Exception {
 
+		// 生徒登録に必要な情報のうち、「生徒名」が登録されていないという前提条件で
 		RegistStudentModel itemRequest = new RegistStudentModel("", "2005-01-01", "h1", 1);
 		String content = objectWriter.writeValueAsString(itemRequest);
 
+		// 生徒情報をm_studentテーブルに登録する場合
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/student/register")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(content);
 
+		// その場合は、HTTPステータス400が取得できて、Serviceクラスが一度も呼び出しされないこと
 		mockMvc.perform(mockRequest).andExpect(status().isBadRequest());
 		verify(service, times(0)).registerStudent(itemRequest);
 
@@ -115,14 +125,17 @@ class RegistStudentControllerTest {
 	@DisplayName("生徒登録：異常系_Birthdayが空文字")
 	void testRegisterStudent_failed_blankBirthday() throws JsonProcessingException, Exception {
 
+		// 生徒登録に必要な情報のうち、「誕生日」が登録されていないという前提条件で		
 		RegistStudentModel itemRequest = new RegistStudentModel("studentName", "", "h1", 1);
 		String content = objectWriter.writeValueAsString(itemRequest);
 
+		// 生徒情報をm_studentテーブルに登録する場合		
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/student/register")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(content);
 
+		// その場合は、HTTPステータス400が取得できて、Serviceクラスが一度も呼び出しされないこと
 		mockMvc.perform(mockRequest).andExpect(status().isBadRequest());
 		verify(service, times(0)).registerStudent(itemRequest);
 
@@ -132,14 +145,17 @@ class RegistStudentControllerTest {
 	@DisplayName("生徒登録：異常系_Grade(学年)が空文字")
 	void testRegisterStudent_failed_blankGrade() throws JsonProcessingException, Exception {
 
+		// 生徒登録に必要な情報のうち、「学年」が登録されていないという前提条件で
 		RegistStudentModel itemRequest = new RegistStudentModel("studentName", "2005-01-01", "", 1);
 		String content = objectWriter.writeValueAsString(itemRequest);
 
+		// 生徒情報をm_studentテーブルに登録する場合		
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/student/register")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(content);
 
+		// その場合は、HTTPステータス400が取得できて、Serviceクラスが一度も呼び出しされないこと				
 		mockMvc.perform(mockRequest).andExpect(status().isBadRequest());
 		verify(service, times(0)).registerStudent(itemRequest);
 
@@ -149,14 +165,17 @@ class RegistStudentControllerTest {
 	@DisplayName("生徒登録：異常系_classroomIdが0")
 	void testRegisterStudent_failed_classroomIdisZero() throws JsonProcessingException, Exception {
 
+		// 生徒登録に必要な情報のうち、「教室ID」が不正(0)になっているという前提条件で
 		RegistStudentModel itemRequest = new RegistStudentModel("studentName", "2005-01-01", "h1", 0);
 		String content = objectWriter.writeValueAsString(itemRequest);
 
+		// 生徒情報をm_studentテーブルに登録する場合		
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/student/register")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)
 				.content(content);
 
+		// その場合は、HTTPステータス400が取得できて、Serviceクラスが一度も呼び出しされないこと
 		mockMvc.perform(mockRequest).andExpect(status().isBadRequest());
 		verify(service, times(0)).registerStudent(itemRequest);
 
