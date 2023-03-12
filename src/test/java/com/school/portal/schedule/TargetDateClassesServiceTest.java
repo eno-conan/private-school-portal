@@ -1,4 +1,4 @@
-package com.school.portal.classSchedule;
+package com.school.portal.schedule;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -24,6 +24,7 @@ import com.school.portal.entity.master.Subject;
 import com.school.portal.entity.master.Teacher;
 import com.school.portal.entity.master.TimeTableNormal;
 import com.school.portal.repository.StudentScheduleNormalRepository;
+import com.school.portal.schedule.TargetDateClassesService;
 
 class TargetDateClassesServiceTest {
 

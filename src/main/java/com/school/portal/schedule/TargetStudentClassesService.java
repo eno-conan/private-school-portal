@@ -1,6 +1,6 @@
 //
 //
-package com.school.portal.classSchedule;
+package com.school.portal.schedule;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
