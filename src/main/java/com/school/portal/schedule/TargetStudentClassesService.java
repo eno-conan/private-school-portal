@@ -1,6 +1,15 @@
+// -----------------------------------------------------------------------------
+// TargetStudentClassesService.java
+// -----------------------------------------------------------------------------
 //
+// 本ファイルについて
+// * getTargeStudentClassSchedule()：特定生徒の授業予定をデータベースから取得を行い、
+// Controllerクラスへデータを返す。
 //
-package com.school.portal.classSchedule;
+// * pickUpInfo()：Controllerクラスに返すデータを整形する。
+// 返すデータに必要な項目は、メソッドのコメントを確認
+//
+package com.school.portal.schedule;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -19,10 +28,10 @@ class TargetStudentClassesService {
   StudentScheduleNormalRepository studentScheduleNormalRepository;
 
   /**
-   * // チェックをいれた授業の生徒の授業予定を取得
+   * getTargeStudentClassSchedule(final String studentId)
    * 
-   * @param content 予定取得に必要な情報
-   * @return json 授業予定
+   * @param studentId 生徒ID
+   * @return 授業予定を設定したMap
    *
    */
   Map<String, Object> getTargeStudentClassSchedule(final String studentId) {
@@ -31,7 +40,13 @@ class TargetStudentClassesService {
     return pickUpInfo(studentSchedule);
   }
 
-  // 画面表示用に、Map生成
+  /**
+   * pickUpInfo
+   *
+   * @param studentSchedule
+   * @return 授業予定に必要な項目（行末に項目名を記載）
+   *
+   */
   private Map<String, Object> pickUpInfo(List<StudentScheduleNormal> studentSchedule) {
     Map<String, Object> result = new LinkedHashMap<>();
     List<Map<String, Object>> classList = new ArrayList<>();

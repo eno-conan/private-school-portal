@@ -24,6 +24,12 @@ javadoc {
     options.encoding = 'UTF-8'
 }
 
+task myJavadocs(type: Javadoc) {    
+    source = sourceSets.main.allJava
+    options.memberLevel = JavadocMemberLevel.PRIVATE
+    destinationDir = file("./doc/")
+  }
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
