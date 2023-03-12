@@ -20,6 +20,10 @@ allprojects {
     }
 }
 
+javadoc {
+    options.encoding = 'UTF-8'
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
