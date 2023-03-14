@@ -13,8 +13,4 @@ public class Classroom {
   private String prefectureName;
   private String classroomName;
 
-  // private static Classroom createClassroom() {
-  // return null;
-  // }
-
 }

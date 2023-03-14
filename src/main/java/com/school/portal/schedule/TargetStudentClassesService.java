@@ -34,9 +34,9 @@ class TargetStudentClassesService {
    * @return 授業予定を設定したMap
    *
    */
-  Map<String, Object> getTargeStudentClassSchedule(final String studentId) {
-    List<StudentScheduleNormal> studentSchedule = studentScheduleNormalRepository
-        .findByStudentOrderByClassDateAsc(new Student(Integer.parseInt(studentId)));
+  Map<String, Object> getTargeStudentClassSchedule(final int studentId) {
+    List<StudentScheduleNormal> studentSchedule =
+        studentScheduleNormalRepository.findByStudentOrderByClassDateAsc(new Student(studentId));
     return pickUpInfo(studentSchedule);
   }
 
