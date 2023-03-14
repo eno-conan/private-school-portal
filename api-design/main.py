@@ -88,7 +88,7 @@ async def 通常授業予定取得_日付指定(targetDate: str):
     return result
 
 
-@app.get(path="/class-schedule/{studentId}", response_model=List[class_normal_schedule_model_by_student_id], tags=['授業予定'])
+@app.get(path="/class-schedule/student/{studentId}", response_model=List[class_normal_schedule_model_by_student_id], tags=['授業予定'])
 async def 通常授業予定取得_生徒ID指定(studentId: int):
     result = [
         {

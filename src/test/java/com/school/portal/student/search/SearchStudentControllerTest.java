@@ -81,7 +81,7 @@ class SearchStudentControllerTest {
 //	@DisplayName("生徒情報取得Controller：例外発生")
 //	void testSearchStudent_raiseException() throws StudentSearchException {
 //		List<Map<String, Object>> returnJsonLiteral = createStudentList();
-//		when(service.searchStudent(1, "Mike")).thenReturn(returnJsonLiteral).thenThrow(new StudentSearchException());
+//		when(targetDateClassesService.searchStudent(1, "Mike")).thenReturn(returnJsonLiteral).thenThrow(new StudentSearchException());
 //
 //		try {
 //			mockMvc.perform(get("/student/search?classroomId=1&studentName=Mike"))
@@ -91,7 +91,7 @@ class SearchStudentControllerTest {
 //		}
 //
 //		//Serviceクラス呼び出し前に処理が終了
-//		verify(service, times(1)).searchStudent(1, "Mike");
+//		verify(targetDateClassesService, times(1)).searchStudent(1, "Mike");
 //	}
 
 	private List<Map<String, Object>> createStudentList() {
