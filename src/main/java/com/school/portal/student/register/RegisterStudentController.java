@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.school.portal.model.RegistStudentModel;
+import com.school.portal.model.RegisterStudentModel;
 import jakarta.validation.Valid;
 
 @RestController
-class RegistStudentController {
+class RegisterStudentController {
 
   @Autowired
-  private RegistStudentService registStudentService;
+  private RegisterStudentService registStudentService;
 
   /**
    * 生徒登録に必要なデータ取得（教室情報）
@@ -34,7 +34,7 @@ class RegistStudentController {
    * 生徒登録
    */
   @PostMapping("/student/register")
-  String registerStudent(@RequestBody @Valid RegistStudentModel content) {
+  String registerStudent(@RequestBody @Valid RegisterStudentModel content) {
     try {
       return registStudentService.registerStudent(content);
     } catch (JsonProcessingException e) {

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.school.portal.entity.master.Classroom;
 import com.school.portal.entity.master.Grade;
 import com.school.portal.entity.master.Student;
-import com.school.portal.model.RegistStudentModel;
+import com.school.portal.model.RegisterStudentModel;
 import com.school.portal.repository.master.ClassroomRepository;
 import com.school.portal.repository.master.StudentRepository;
 import com.school.portal.util.UseOverFunction;
@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-class RegistStudentService {
+class RegisterStudentService {
 
 	@Autowired
 	private ClassroomRepository classroomRepository;
@@ -58,7 +58,7 @@ class RegistStudentService {
 	 *
 	 */
 	@Transactional
-	String registerStudent(final RegistStudentModel content) throws JsonProcessingException {
+	String registerStudent(final RegisterStudentModel content) throws JsonProcessingException {
 		Student student = new Student();
 		student.setStudentName(content.getStudentName());
 		student.setBirthday(UseOverFunction.convertStrDateToDateType(content.getBirthDay()));

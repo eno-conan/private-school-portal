@@ -64,6 +64,26 @@ class teacher_search_model(BaseModel):
             }
         }
 
+class register_teacher_body(BaseModel):
+    teacherName: str
+    birthDay: str
+    tellNumber: str
+    address: str
+    mailAddress: str
+    classroomId: int
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "teacherName": "a",
+                "birthDay": "2006-12-02",
+                "tellNumber": "012-345-678",
+                "address": "Japan",
+                "mailAddress": "sample@gmail.com",
+                "classroomId": 1
+            }
+        }
+
 
 class class_normal_schedule_model(BaseModel):
     id: int

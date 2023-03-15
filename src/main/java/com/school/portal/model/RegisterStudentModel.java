@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RegistStudentModel implements Serializable {
+public class RegisterStudentModel implements Serializable {
 
 	@NotBlank(message = "studentName is required.")
 	private String studentName;

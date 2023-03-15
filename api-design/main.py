@@ -4,7 +4,7 @@ from api_model import \
     student_register_prepare_classroom_model, \
     student_search_model, class_normal_schedule_model, \
     register_student_body, teacher_search_model,\
-    class_normal_schedule_model_by_student_id
+    class_normal_schedule_model_by_student_id, register_teacher_body
 from fastapi.middleware.cors import CORSMiddleware
 import handle_db
 from typing import List
@@ -34,10 +34,12 @@ async def FastAPI():
 
 @app.get(path="/student/search", response_model=List[student_search_model], tags=['生徒関連'])
 async def 生徒検索(classroomId: int, studentName: str):
-    result = [{"studentId": 1,
-               "studentName": "StudentName",
-               "classroomName": "ClassroomName",
-               "prefectureName": "PrefectureName"}]
+    result = [{
+        "studentId": 1,
+        "studentName": "StudentName",
+        "classroomName": "ClassroomName",
+        "prefectureName": "PrefectureName"
+    }]
     return result
 
 
@@ -45,9 +47,11 @@ async def 生徒検索(classroomId: int, studentName: str):
 # async def student_register_prepare_classroom():
 async def 生徒登録_候補の教室一覧取得():
     result = [
-        {"classroomId": 1,
-         "classroomName": "ClassroomName",
-         "prefectureName": "PrefectureName"}
+        {
+            "classroomId": 1,
+            "classroomName": "ClassroomName",
+            "prefectureName": "PrefectureName"
+        }
     ]
     return result
 
@@ -74,16 +78,29 @@ async def 講師検索(classroomId: int, teacherName: str):
     return result
 
 
+@app.post(path="/teacher/register", tags=['講師関連'])
+async def 講師登録(body: register_teacher_body):
+    result = handle_db.create_user()
+    if result == 1:
+        raise HTTPException(status_code=404, detail="Query Error!!")
+    return {
+        "status": "OK",
+        "data": result
+    }
+
+
 @app.get(path="/class-schedule", response_model=List[class_normal_schedule_model], tags=['授業予定'])
 async def 通常授業予定取得_日付指定(targetDate: str):
     result = [
-        {"id": 1,
-         "period": "6",
-         "grade": "grade",
-         "subject": "subject",
-         "studentId": 1,
-         "studentName": "studentName",
-         "lecturerName": "lecturerName"}
+        {
+            "id": 1,
+            "period": "6",
+            "grade": "grade",
+            "subject": "subject",
+            "studentId": 1,
+            "studentName": "studentName",
+            "lecturerName": "lecturerName"
+        }
     ]
     return result
 
@@ -92,13 +109,13 @@ async def 通常授業予定取得_日付指定(targetDate: str):
 async def 通常授業予定取得_生徒ID指定(studentId: int):
     result = [
         {
-         "studentId": 1,
-         "classDate": "2023/03/12",
-         "period": "6",
-         "grade": "grade",
-         "subject": "subject",
-         "studentName": "studentName",
-         "lecturerName": "lecturerName"}
+            "studentId": 1,
+            "classDate": "2023/03/12",
+            "period": "6",
+            "grade": "grade",
+            "subject": "subject",
+            "studentName": "studentName",
+            "lecturerName": "lecturerName"}
     ]
     return result
 
