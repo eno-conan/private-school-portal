@@ -1,3 +1,17 @@
+// -----------------------------------------------------------------------------
+// RegistStudentController.java
+// -----------------------------------------------------------------------------
+//
+// 本ファイルについて
+// * prepareDataClassroomRegistStudent()：生徒登録時に教室情報が必要。
+// その情報をm_classroomテーブルから取得
+// ** METHOD:GET
+// ** Path：/student/register/prepare-classroom
+//
+// * registerStudent()：生徒の情報をm_studentテーブルに登録する
+// ** METHOD:POST
+// ** Path：/student/register
+//
 package com.school.portal.student.register;
 
 import java.util.List;
@@ -19,6 +33,8 @@ class RegisterStudentController {
 
   /**
    * 生徒登録に必要なデータ取得（教室情報）
+   * 
+   * @return 教室一覧
    */
   @GetMapping("/student/register/prepare-classroom")
   List<Map<String, Object>> prepareDataClassroomRegistStudent() {
@@ -32,6 +48,8 @@ class RegisterStudentController {
 
   /**
    * 生徒登録
+   * 
+   * @param 登録する生徒の情報
    */
   @PostMapping("/student/register")
   String registerStudent(@RequestBody @Valid RegisterStudentModel content) {
