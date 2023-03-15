@@ -1,3 +1,14 @@
+// -----------------------------------------------------------------------------
+// SearchStudentService.java
+// -----------------------------------------------------------------------------
+//
+// 本ファイルについて
+// * searchStudent(final int classroomId, final String studentName)
+// m_studentテーブルから、教室ID・生徒名を条件に情報を取得
+//
+// * pickUpDisplayInfo():m_classroomテーブルから取得した情報のうち、
+// 画面表示に必要な情報を抽出
+//
 package com.school.portal.student.search;
 
 import java.util.ArrayList;
