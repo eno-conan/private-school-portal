@@ -3,10 +3,8 @@ package com.school.portal.entity.master;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.school.portal.entity.StudentScheduleNormal;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,58 +24,68 @@ import lombok.NoArgsConstructor;
 @Data
 public class Teacher {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name = "classroom_id")
-	@JsonIgnore
-	private Classroom classroom;
+  @ManyToOne
+  @JoinColumn(name = "classroom_id")
+  @JsonIgnore
+  private Classroom classroom;
 
-	@Column(name = "name", length = 128, nullable = false, unique = true)
-	private String teacherName;
+  @Column(name = "name", length = 128, nullable = false, unique = true)
+  private String teacherName;
 
-	@Column(name = "birthday")
-	private Date birthday;
+  @Column(name = "birthday")
+  private Date birthday;
 
-	@Column(name = "delete_flg")
-	private boolean deleteFlg;
+  @Column(name = "tell_number", length = 16, nullable = true)
+  private String tellNumber;
 
-	@Column(name = "created_at")
-	private Timestamp createdAt;
+  @Column(name = "address", length = 256, nullable = true)
+  private String address;
 
-	@Column(name = "updated_at")
-	private Timestamp updatedAt;
+  @Column(name = "mail_address", length = 256, nullable = true)
+  private String mailAddress;
 
-//	@OneToMany(mappedBy = "teacher", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = false)
-//	private List<StudentSubject> studentSubjects;
+  @Column(name = "delete_flg")
+  private boolean deleteFlg;
 
-	@OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = false)
-	private List<StudentScheduleNormal> studentScheduleNormal;
+  @Column(name = "created_at")
+  private Timestamp createdAt;
 
-//	@OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = false)
-//	private List<teacherTeachSubject> teacherTeachSubject;
-//
-//	@OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = false)
-//	private List<teacherWorkableTime> teacherWorkableTime;
-//
-//	@OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = false)
-//	private List<StudentScheduleSpecial> studentScheduleSpecial;
+  @Column(name = "updated_at")
+  private Timestamp updatedAt;
 
-	public Teacher(Integer id) {
-		this.id = id;
-	}
+  // @OneToMany(mappedBy = "teacher", cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+  // orphanRemoval = false)
+  // private List<StudentSubject> studentSubjects;
 
-	public Teacher(Classroom classroom, String teacherName, Date birthday, boolean deleteFlg, Timestamp createdAt,
-			Timestamp updatedAt) {
-		this.classroom = classroom;
-		this.teacherName = teacherName;
-		this.birthday = birthday;
-		this.deleteFlg = deleteFlg;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-	}
+  @OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = false)
+  private List<StudentScheduleNormal> studentScheduleNormal;
+
+  // @OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = false)
+  // private List<teacherTeachSubject> teacherTeachSubject;
+  //
+  // @OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = false)
+  // private List<teacherWorkableTime> teacherWorkableTime;
+  //
+  // @OneToMany(mappedBy = "teacher", cascade = CascadeType.PERSIST, orphanRemoval = false)
+  // private List<StudentScheduleSpecial> studentScheduleSpecial;
+
+  public Teacher(Integer id) {
+    this.id = id;
+  }
+
+  public Teacher(Classroom classroom, String teacherName, Date birthday, boolean deleteFlg,
+      Timestamp createdAt, Timestamp updatedAt) {
+    this.classroom = classroom;
+    this.teacherName = teacherName;
+    this.birthday = birthday;
+    this.deleteFlg = deleteFlg;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
 
 }

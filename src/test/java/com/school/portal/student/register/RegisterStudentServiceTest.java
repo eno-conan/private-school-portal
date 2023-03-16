@@ -23,14 +23,14 @@ import com.school.portal.entity.master.Grade;
 import com.school.portal.entity.master.Prefecture;
 import com.school.portal.entity.master.Student;
 import com.school.portal.exception.StudentSearchException;
-import com.school.portal.model.RegistStudentModel;
+import com.school.portal.model.RegisterStudentModel;
 import com.school.portal.repository.master.ClassroomRepository;
 import com.school.portal.repository.master.StudentRepository;
 import com.school.portal.util.UseOverFunction;
 import io.github.netmikey.logunit.api.LogCapturer;
 
 @SpringBootTest
-class RegistStudentServiceTest {
+class RegisterStudentServiceTest {
 
   @Mock
   ClassroomRepository classroomRepository;
@@ -39,14 +39,14 @@ class RegistStudentServiceTest {
   StudentRepository studentRepository;
 
   @InjectMocks
-  RegistStudentService service;
+  RegisterStudentService service;
 
   private AutoCloseable closeable;
 
   // ログのキャプチャ設定
   // https://olafnosuke.hatenablog.com/entry/2022/06/17/165422
   @RegisterExtension
-  LogCapturer logs = LogCapturer.create().captureForType(RegistStudentService.class, Level.INFO);
+  LogCapturer logs = LogCapturer.create().captureForType(RegisterStudentService.class, Level.INFO);
 
   @BeforeEach
   public void openMocks() {
@@ -94,7 +94,7 @@ class RegistStudentServiceTest {
   @DisplayName("生徒登録_正常系")
   void testRegisterStudent() throws StudentSearchException, JsonProcessingException {
     // リクエスト内容
-    RegistStudentModel model = new RegistStudentModel("studentName", "2005-01-01", "h1", 1);
+    RegisterStudentModel model = new RegisterStudentModel("studentName", "2005-01-01", "h1", 1);
     // 期待結果設定
     Student student = createStudent(model);
     when(studentRepository.save(any(Student.class))).thenReturn((student));
@@ -110,7 +110,7 @@ class RegistStudentServiceTest {
    * @return Student
    *
    */
-  private Student createStudent(RegistStudentModel model) {
+  private Student createStudent(RegisterStudentModel model) {
     Student student = new Student();
     student.setStudentName(model.getStudentName());
     student.setBirthday(UseOverFunction.convertStrDateToDateType(model.getBirthDay()));

@@ -24,7 +24,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.school.portal.entity.master.Classroom;
 import com.school.portal.entity.master.Grade;
 import com.school.portal.entity.master.Student;
-import com.school.portal.model.RegistStudentModel;
+import com.school.portal.model.RegisterStudentModel;
 import com.school.portal.repository.master.ClassroomRepository;
 import com.school.portal.repository.master.StudentRepository;
 import com.school.portal.util.UseOverFunction;
@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-class RegistStudentService {
+class RegisterStudentService {
 
   @Autowired
   private ClassroomRepository classroomRepository;
@@ -59,27 +59,27 @@ class RegistStudentService {
     return pickupClassroomInfo(classrooms);
   }
 
-  /**
-   * 生徒登録
-   * 
-   * @param content 登録内容
-   * @throws JsonProcessingException
-   *
-   */
-  @Transactional
-  String registerStudent(final RegistStudentModel content) throws JsonProcessingException {
-    Student student = new Student();
-    student.setStudentName(content.getStudentName());
-    student.setBirthday(UseOverFunction.convertStrDateToDateType(content.getBirthDay()));
-    student.setClassroom(new Classroom(content.getClassroomId()));
-    student.setGrade(new Grade(content.getGrade()));
-    student.setDeleteFlg(false);
-    student.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-    student.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-    studentRepository.save(student);
-    Student registerResult = studentRepository.save(student);
-    return registerResult.getStudentName();
-  }
+	/**
+	 * 生徒登録
+	 * 
+	 * @param content 登録内容
+	 * @throws JsonProcessingException
+	 *
+	 */
+	@Transactional
+	String registerStudent(final RegisterStudentModel content) throws JsonProcessingException {
+		Student student = new Student();
+		student.setStudentName(content.getStudentName());
+		student.setBirthday(UseOverFunction.convertStrDateToDateType(content.getBirthDay()));
+		student.setClassroom(new Classroom(content.getClassroomId()));
+		student.setGrade(new Grade(content.getGrade()));
+		student.setDeleteFlg(false);
+		student.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+		student.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+		studentRepository.save(student);
+		Student registerResult = studentRepository.save(student);
+		return registerResult.getStudentName();
+	}
 
   /**
    * // 教室情報取得（整形用）

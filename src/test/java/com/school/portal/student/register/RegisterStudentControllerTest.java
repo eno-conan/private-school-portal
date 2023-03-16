@@ -28,16 +28,16 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.school.portal.model.RegistStudentModel;
+import com.school.portal.model.RegisterStudentModel;
 import com.school.portal.model.api.Classroom;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @EnableWebMvc
-class RegistStudentControllerTest {
+class RegisterStudentControllerTest {
 
   @MockBean
-  RegistStudentService service;
+  RegisterStudentService service;
 
   private MockMvc mockMvc;
 
@@ -116,7 +116,7 @@ class RegistStudentControllerTest {
   void testRegisterStudent_success() throws JsonProcessingException, Exception {
 
     // 生徒登録に必要な各情報が設定できているという前提条件で
-    RegistStudentModel itemRequest = new RegistStudentModel("a", "2005-01-01", "h1", 1);
+    RegisterStudentModel itemRequest = new RegisterStudentModel("a", "2005-01-01", "h1", 1);
 
     String content = objectWriter.writeValueAsString(itemRequest);
 
@@ -143,7 +143,7 @@ class RegistStudentControllerTest {
   void testRegisterStudent_failed_blankStudentName() throws JsonProcessingException, Exception {
 
     // 生徒登録に必要な情報のうち、「生徒名」が登録されていないという前提条件で
-    RegistStudentModel itemRequest = new RegistStudentModel("", "2005-01-01", "h1", 1);
+    RegisterStudentModel itemRequest = new RegisterStudentModel("", "2005-01-01", "h1", 1);
     String content = objectWriter.writeValueAsString(itemRequest);
 
     // 生徒情報をm_studentテーブルに登録する場合
@@ -164,7 +164,7 @@ class RegistStudentControllerTest {
   void testRegisterStudent_failed_blankBirthday() throws JsonProcessingException, Exception {
 
     // 生徒登録に必要な情報のうち、「誕生日」が登録されていないという前提条件で
-    RegistStudentModel itemRequest = new RegistStudentModel("studentName", "", "h1", 1);
+    RegisterStudentModel itemRequest = new RegisterStudentModel("studentName", "", "h1", 1);
     String content = objectWriter.writeValueAsString(itemRequest);
 
     // 生徒情報をm_studentテーブルに登録する場合
@@ -185,7 +185,7 @@ class RegistStudentControllerTest {
   void testRegisterStudent_failed_blankGrade() throws JsonProcessingException, Exception {
 
     // 生徒登録に必要な情報のうち、「学年」が登録されていないという前提条件で
-    RegistStudentModel itemRequest = new RegistStudentModel("studentName", "2005-01-01", "", 1);
+    RegisterStudentModel itemRequest = new RegisterStudentModel("studentName", "2005-01-01", "", 1);
     String content = objectWriter.writeValueAsString(itemRequest);
 
     // 生徒情報をm_studentテーブルに登録する場合
@@ -206,7 +206,7 @@ class RegistStudentControllerTest {
   void testRegisterStudent_failed_classroomIdisZero() throws JsonProcessingException, Exception {
 
     // 生徒登録に必要な情報のうち、「教室ID」が不正(0)になっているという前提条件で
-    RegistStudentModel itemRequest = new RegistStudentModel("studentName", "2005-01-01", "h1", 0);
+    RegisterStudentModel itemRequest = new RegisterStudentModel("studentName", "2005-01-01", "h1", 0);
     String content = objectWriter.writeValueAsString(itemRequest);
 
     // 生徒情報をm_studentテーブルに登録する場合
