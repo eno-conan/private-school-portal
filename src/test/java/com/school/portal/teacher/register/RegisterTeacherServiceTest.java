@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 import org.slf4j.event.Level;
 import org.slf4j.event.LoggingEvent;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.school.portal.entity.master.Classroom;
 import com.school.portal.entity.master.Prefecture;
@@ -29,6 +30,7 @@ import com.school.portal.util.UseOverFunction;
 import io.github.netmikey.logunit.api.LogCapturer;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class RegisterTeacherServiceTest {
 
   @InjectMocks

@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import com.school.portal.entity.StudentScheduleNormal;
 import com.school.portal.entity.master.Grade;
 import com.school.portal.entity.master.Student;
@@ -24,6 +25,7 @@ import com.school.portal.entity.master.TimeTableNormal;
 import com.school.portal.repository.StudentScheduleNormalRepository;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class TargetDateClassesServiceTest {
 
   @Mock

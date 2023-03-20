@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -36,6 +37,7 @@ import com.school.portal.model.api.Classroom;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @EnableWebMvc
+@ActiveProfiles("test")
 class RegisterTeacherControllerTest {
 
   @MockBean

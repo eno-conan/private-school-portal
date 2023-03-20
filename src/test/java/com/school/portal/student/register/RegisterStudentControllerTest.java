@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -34,6 +35,7 @@ import com.school.portal.model.api.Classroom;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @EnableWebMvc
+@ActiveProfiles("test")
 class RegisterStudentControllerTest {
 
   @MockBean
@@ -206,7 +208,8 @@ class RegisterStudentControllerTest {
   void testRegisterStudent_failed_classroomIdisZero() throws JsonProcessingException, Exception {
 
     // 生徒登録に必要な情報のうち、「教室ID」が不正(0)になっているという前提条件で
-    RegisterStudentModel itemRequest = new RegisterStudentModel("studentName", "2005-01-01", "h1", 0);
+    RegisterStudentModel itemRequest =
+        new RegisterStudentModel("studentName", "2005-01-01", "h1", 0);
     String content = objectWriter.writeValueAsString(itemRequest);
 
     // 生徒情報をm_studentテーブルに登録する場合
